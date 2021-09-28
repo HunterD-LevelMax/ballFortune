@@ -19,12 +19,22 @@ class MainActivity : AppCompatActivity() {
     private var mAccelerometer: Sensor? = null
     private var mShakeDetector: ShakeDetector? = null
 
-    private var countShake: Int = 0
+    var countShake: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        val shake = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+            .getString("SHAKE_COUNTER", null)
+
+        if (shake != null) {
+            countShake = shake.toInt()
+            binding.progressBar.progress = countShake
+        }
+
 
         binding.textTV.setOnClickListener {
             startMagic()
@@ -42,6 +52,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.settingsFab.setOnClickListener {
+            val sharedPreferences: SharedPreferences? =
+                this.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+
+            editor?.apply { putString("SHAKE_COUNTER", countShake.toString()) }?.apply()
+
             replaceActivity(SettingsActivity())
         }
 
@@ -58,12 +74,28 @@ class MainActivity : AppCompatActivity() {
             mAccelerometer,
             SensorManager.SENSOR_DELAY_UI
         )
+
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val sharedPreferences: SharedPreferences? =
+            this.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+
+        editor?.apply { putString("SHAKE_COUNTER", countShake.toString()) }?.apply()
     }
 
     override fun onPause() { // Add the following line to unregister the Sensor Manager onPause
         mSensorManager!!.unregisterListener(mShakeDetector)
-        super.onPause()
+        val sharedPreferences: SharedPreferences? =
+            this.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
 
+        editor?.apply { putString("SHAKE_COUNTER", countShake.toString()) }?.apply()
+
+        super.onPause()
     }
 
     private fun initSensor() {
@@ -111,14 +143,26 @@ class MainActivity : AppCompatActivity() {
 
         binding.progressBar.progress = countShake
 
+
+        //show advertising
         if (countShake == 10) {
             showToast("10 трясок!")
             countShake = 0
 
+            val sharedPreferences: SharedPreferences? =
+                this.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+
+            editor?.apply { putString("SHAKE_COUNTER", "0") }?.apply()
+
+
+
+
+
+
         }
 
         binding.textTV.text = getAnswer()
-
         binding.magicBallImageView.isClickable = false
         binding.textTV.isClickable = false
 
@@ -128,7 +172,7 @@ class MainActivity : AppCompatActivity() {
                 binding.magicBallImageView.isClickable = true
                 binding.textTV.isClickable = true
 
-            }, 2000
+            }, 1000
         )
 
         val sound = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
@@ -160,7 +204,6 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         //don't exit
     }
-
 
 }
 

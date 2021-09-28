@@ -9,6 +9,8 @@ import com.codeuphoria.ballfortune.databinding.ActivitySettingsBinding
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
 
+    private var shakeCount: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -36,13 +38,11 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.backFab.setOnClickListener {
             replaceActivity(MainActivity())
-            finish()
         }
         checkSettings()
     }
 
     private fun checkSettings() {
-
         binding.soundSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             val sharedPreferences: SharedPreferences? =
                 this.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)

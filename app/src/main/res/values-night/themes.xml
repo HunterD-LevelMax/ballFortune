@@ -9,7 +9,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#050608</item>
         <item name="colorSecondaryVariant">@color/warm_grey</item>
-        <item name="colorOnSecondary">@color/white</item>  // цвет значков на кнопках
+        <item name="colorOnSecondary">#302F41</item>  // цвет значков на кнопках
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">#050608</item>
         <!-- Customize your theme here. -->
