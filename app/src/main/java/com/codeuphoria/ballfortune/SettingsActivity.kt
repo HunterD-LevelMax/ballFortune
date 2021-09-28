@@ -7,23 +7,23 @@ import android.os.Bundle
 import com.codeuphoria.ballfortune.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
-    lateinit var binding: ActivitySettingsBinding
+    private lateinit var binding: ActivitySettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.versionTV.text = "Сборка "
+        binding.versionTV.text = "Сборка " + getString(R.string.app_version)
 
         val versionCode =
             System.getProperty("http.agent").toString() + "\n" + "(с) Все права защищены"
         binding.pravaTV.text = versionCode
 
-        var sound = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+        val sound = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
             ?.getString("SOUND_SETTINGS", null)
 
-        var vibrate = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+        val vibrate = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
             ?.getString("VIBRATE_SETTINGS", null)
 
         if (sound == "1") {
@@ -44,9 +44,9 @@ class SettingsActivity : AppCompatActivity() {
     private fun checkSettings() {
 
         binding.soundSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            var sharedPreferences: SharedPreferences? =
+            val sharedPreferences: SharedPreferences? =
                 this.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
-            var editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
 
             if (isChecked) {
                 // The switch is enabled/checked
@@ -60,9 +60,9 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         binding.vibrateSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            var sharedPreferences: SharedPreferences? =
+            val sharedPreferences: SharedPreferences? =
                 this.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
-            var editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+            val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
 
             if (isChecked) {
                 // The switch is enabled/checked

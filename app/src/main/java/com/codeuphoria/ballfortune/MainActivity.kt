@@ -2,6 +2,8 @@ package com.codeuphoria.ballfortune
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +14,12 @@ import com.codeuphoria.ballfortune.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private var mSensorManager: SensorManager? = null
+    private var mAccelerometer: Sensor? = null
+    private var mShakeDetector: ShakeDetector? = null
+
+    private var countShake: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +46,38 @@ class MainActivity : AppCompatActivity() {
         }
 
         startAnim()
+        initSensor()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startAnim()
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager!!.registerListener(
+            mShakeDetector,
+            mAccelerometer,
+            SensorManager.SENSOR_DELAY_UI
+        )
+    }
+
+    override fun onPause() { // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager!!.unregisterListener(mShakeDetector)
+        super.onPause()
+
+    }
+
+    private fun initSensor() {
+        mSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        mAccelerometer = mSensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        mShakeDetector = ShakeDetector()
+        mShakeDetector!!.setOnShakeListener(object : ShakeDetector.OnShakeListener {
+
+            override fun onShake(count: Int) {
+                startMagic()
+
+//                Toast.makeText(this@MainActivity, count.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun setSettings() {
@@ -66,6 +106,17 @@ class MainActivity : AppCompatActivity() {
     private fun startMagic() {
         setSettings()
         startAnim()
+
+        countShake++
+
+        binding.progressBar.progress = countShake
+
+        if (countShake == 10) {
+            showToast("10 трясок!")
+            countShake = 0
+
+        }
+
         binding.textTV.text = getAnswer()
 
         binding.magicBallImageView.isClickable = false
@@ -110,10 +161,7 @@ class MainActivity : AppCompatActivity() {
         //don't exit
     }
 
-    override fun onResume() {
-        super.onResume()
-        startAnim()
-    }
+
 }
 
 

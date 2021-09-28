@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp"
+            android:checked="false"
             android:minHeight="48dp"
             android:text="Звук"
             android:textColor="#FFFFFF"
