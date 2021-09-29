@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:hapticFeedbackEnabled="false"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <TextView
         android:id="@+id/textTV"
@@ -15,7 +15,7 @@
         android:elevation="1dp"
         android:gravity="center"
         android:repeatMode="reverse"
-        android:text="Нажми на меня или потряси"
+        android:text="@string/touch_me"
         android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/shareFab"
@@ -44,7 +44,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/ic_baseline_share"
         android:clickable="true"
-        android:contentDescription="Поделиться"
+        android:contentDescription="@string/share"
         android:focusable="true"
         app:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +58,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
-        android:contentDescription="Настройки"
+        android:contentDescription="@string/settings"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

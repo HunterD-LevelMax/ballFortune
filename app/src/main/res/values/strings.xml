@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">Шар удачи</string>
     <string name="app_version">0.15</string>
+    <string name="settings_sound_enabled">Звук включен</string>
+    <string name="settings_sound_disabled">Звук включен</string>
+    <string name="settings_vibration_enabled">Вибрация включена</string>
+    <string name="settings_vibration_disabled">Вибрация выключена</string>
+    <string name="touch_me">Нажми на меня или потряси</string>
+    <string name="share">Поделиться</string>
+    <string name="settings">Настройки</string>
+    <string name="sound">Звук</string>
+    <string name="vibration">Вибрация</string>
+    <string name="back">Назад</string>
+    <string name="version_app">Сборка 1.2</string>
+    <string name="about_device">Информация об устройстве</string>
+
+
 </resources>
 

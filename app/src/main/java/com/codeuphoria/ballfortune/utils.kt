@@ -5,6 +5,10 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
+
+const val PREFERENCE = "PREFERENCE"
+val versionCode = System.getProperty("http.agent").toString() + "\n" + "(с) Все права защищены"
+
 fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
     val intent = Intent(this, activity::class.java)
     startActivity(intent)

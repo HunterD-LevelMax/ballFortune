@@ -11,11 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BallFortune">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activity.SettingsActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>

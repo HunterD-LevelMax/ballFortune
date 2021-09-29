@@ -1,4 +1,4 @@
-package com.codeuphoria.ballfortune
+package com.codeuphoria.ballfortune.activity
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Vibrator
 import android.view.animation.AnimationUtils
 import androidx.core.app.ShareCompat
+import com.codeuphoria.ballfortune.*
 import com.codeuphoria.ballfortune.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private var mAccelerometer: Sensor? = null
     private var mShakeDetector: ShakeDetector? = null
 
-    var countShake: Int = 0
+    private var countShake: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,6 @@ class MainActivity : AppCompatActivity() {
             countShake = shake.toInt()
             binding.progressBar.progress = countShake
         }
-
 
         binding.textTV.setOnClickListener {
             startMagic()
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setSettings() {
-        val sound = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+        val sound = getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE)
             .getString("SOUND_SETTINGS", null)
         val vibrate = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
             .getString("SOUND_SETTINGS", null)
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
 
         if (sound == null || vibrate == null) {
             val sharedPreferences: SharedPreferences? =
-                this.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+                this.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE)
             val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
 
             editor?.apply { putString("SOUND_SETTINGS", "1") }?.apply()
@@ -154,11 +154,6 @@ class MainActivity : AppCompatActivity() {
             val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
 
             editor?.apply { putString("SHAKE_COUNTER", "0") }?.apply()
-
-
-
-
-
 
         }
 
