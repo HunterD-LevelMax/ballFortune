@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             SensorManager.SENSOR_DELAY_UI
         )
 
-
     }
 
     override fun onDestroy() {

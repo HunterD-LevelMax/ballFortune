@@ -6,6 +6,21 @@ plugins {
 android {
     compileSdk 30
 
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Keystore\\EuphoriaKey.jks')
+            storePassword 'CodeEuphoria1998'
+            keyAlias 'key0'
+            keyPassword 'CodeEuphoria1998'
+        }
+        release {
+            storeFile file('C:\\Keystore\\EuphoriaKey.jks')
+            storePassword 'CodeEuphoria1998'
+            keyAlias "key0"
+            keyPassword 'CodeEuphoria1998'
+        }
+    }
+
     defaultConfig {
         applicationId "com.codeuphoria.ballfortune"
         minSdk 24
@@ -20,6 +35,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
         }
     }
     compileOptions {
